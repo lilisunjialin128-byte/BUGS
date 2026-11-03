@@ -5,17 +5,22 @@ public class playerMovement : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity = Vector3.zero;
 
+    public Transform cam;
+    private float xRot;
+
     public float speed = 10f;
     public float rotateSpeed = 1f;
     public float gravity = -9.8f;
     public Transform groundCheck;
     public float checkRadius = 0.2f; 
-    private bool isGround;
+    public bool isGround;
     public LayerMask layerMask;
+    public float jumpHeight= 3f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         controller = transform.GetComponent<CharacterController>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -31,15 +36,31 @@ public class playerMovement : MonoBehaviour
             velocity.y = 0;
         }
 
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
+        if (isGround && Input.GetButtonDown("Jump"))
+        {
+            velocity.y += Mathf.Sqrt(jumpHeight* -2 * gravity);
+        }
 
-        var move = transform.forward * speed * vertical * Time.deltaTime;
+        
+        var vertical = Input.GetAxis("Vertical");
+        var move = (transform.forward * vertical + transform.right * Input.GetAxis("Horizontal")) * speed * Time.deltaTime;
+
         controller.Move(move);
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
-        transform.Rotate(Vector3.up,horizontal * rotateSpeed);
+        transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * rotateSpeed);
+
+        xRot = Mathf.Clamp(xRot - Input.GetAxis("Mouse Y") * rotateSpeed, -80f, 80f);
+        cam.localRotation = Quaternion.Euler(xRot, 0, 0);
+    }
+
+    private void OnControllerColliderHit (ControllerColliderHit hit)
+    {
+        if (hit.transform.CompareTag("Finish"))
+        {
+            hit.rigidbody.AddForce(transform.forward * speed);
+        }
     }
 }
