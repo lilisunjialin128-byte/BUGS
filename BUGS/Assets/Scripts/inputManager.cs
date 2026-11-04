@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerMovement : MonoBehaviour
+public class inputManager : MonoBehaviour
 {
     private CharacterController controller;
     private Vector3 velocity = Vector3.zero;
