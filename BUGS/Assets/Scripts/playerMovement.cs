@@ -7,6 +7,7 @@ public class playerMovement : MonoBehaviour
 
     public Transform cam;
     private float xRot;
+    public float minPitch = -20f, maxPitch = 60f;
 
     public float speed = 10f;
     public float rotateSpeed = 1f;
@@ -52,7 +53,7 @@ public class playerMovement : MonoBehaviour
 
         transform.Rotate(Vector3.up, Input.GetAxis("Mouse X") * rotateSpeed);
 
-        xRot = Mathf.Clamp(xRot - Input.GetAxis("Mouse Y") * rotateSpeed, -80f, 80f);
+        xRot = Mathf.Clamp(xRot - Input.GetAxis("Mouse Y") * rotateSpeed, minPitch, maxPitch);
         cam.localRotation = Quaternion.Euler(xRot, 0, 0);
     }
 
