@@ -6,7 +6,7 @@ public class Dialog : MonoBehaviour
     public GameObject panel, crosshair, dialogCam;
     public inputManager player;
     public TMP_Text text;
-    public float range = 3f;
+    public float range = 5f;
     [TextArea] public string[] lines;
     private int index;
 
