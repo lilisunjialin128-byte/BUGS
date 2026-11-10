@@ -4879,7 +4879,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 12
   m_Type: 2
-  m_Color: {r: 1, g: 0.94800824, b: 0.4433961, a: 1}
+  m_Color: {r: 0.56078434, g: 1, b: 0.5019608, a: 1}
   m_Intensity: 5
   m_Range: 8
   m_SpotAngle: 30
@@ -5077,7 +5077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4903a876d97b2fa4e9b2428059d593b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireflyFade
-  time: 1.5
+  fadeIn: 2.5
+  fadeOut: 1.5
 --- !u!1 &6243153706551494726
 GameObject:
   m_ObjectHideFlags: 0
